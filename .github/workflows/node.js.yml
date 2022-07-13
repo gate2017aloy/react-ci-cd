@@ -13,9 +13,6 @@ jobs:
   build:
 
     runs-on: ubuntu-latest
-    defaults:
-      run:
-        working-directory: ./app
 
     strategy:
       matrix:
@@ -29,6 +26,14 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
         cache: 'npm'
-    - run: npm ci
-    - run: npm run build --if-present
-    - run: npm test
+        
+    - name: Install dependencies
+      run: npm --prefix app ci install
+      
+    - name: Test react project
+      run: npm --prefix app test   
+      
+    - name: Build react project
+      run: npm --prefix app run build --if-present
+      
+
