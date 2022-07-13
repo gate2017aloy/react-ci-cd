@@ -27,11 +27,11 @@ jobs:
         node-version: ${{ matrix.node-version }}
 #        cache: 'npm'
 #        cache-dependency-path: "./app/package-lock.json"
-
+    - name: Move to the working directory
+      run: cd ./app
     - name: Install dependencies
-      run: npm --prefix app ci install
+      run: npm ci
     - name: Test react project 
-      run: npm --prefix app test  
+      run: npm test 
     - name: Build react project
-      run: npm --prefix app run build --if-present
-  
+      run: npm run build
